@@ -24,9 +24,6 @@ class Player(circleshape.CircleShape):
         c = self.position - forward * self.radius + right
         return [a, b, c]
 
-    def draw(self, screen):
-        pg.draw.polygon(screen, pg.Color(255, 255, 255), self.triangle(), 2)
-
     def rotate(self, dt):
         self.rotation += PLAYER_TURN_SPEED * dt
 
@@ -39,6 +36,9 @@ class Player(circleshape.CircleShape):
             self.shot_delay = PLAYER_SHOOT_COOLDOWN
             shot = sh.Shot(self.position.x, self.position.y)
             shot.velocity = pg.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+
+    def draw(self, screen):
+        pg.draw.polygon(screen, pg.Color(255, 255, 255), self.triangle(), 2)
 
     def update(self, dt):
         self.shot_delay -= dt
